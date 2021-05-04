@@ -27,44 +27,44 @@ public void tearDown()
 driver.close();
 }
 
-@Test(priority=1)
+@Test(priority=1,dataProvider="DataSource")
 public void Input(String ip1,String ip2) throws InterruptedException
 {
-	driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\"]")).sendKeys("Mobile");
+	driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\"]")).sendKeys(ip1);
 	driver.findElement(By.id("nav-search-submit-button")).click();
 	
 	Thread.sleep(3000);
 
-	driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\"]")).sendKeys("Fashion");
+	driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\"]")).sendKeys(ip2);
 	driver.findElement(By.id("nav-search-submit-button")).click();
 }
 
 @Test(priority=2)
 public void Failed()
 {
-	if(driver.getTitle().contains("Amazon"))
+	if(driver.getTitle().contains("Amazon01"))
 	Assert.assertTrue(false, "false");
 }
 
-//@DataProvider(name="DataSource")
-//public String[][] supplyData() throws IOException{
-//	String xlPath="C:\\Users\\sanjana\\eclipse-workspace\\Sel_Testng\\Sanjana_01\\src\\test\\java\\com\\qa\\amazon\\TestData.xlsx";
-//	String xlSheet = "Sheet1";
-//	
-//	int rowCount = ExcelUtility.getRowCount(xlPath, xlSheet);
-//	
-//	int cellCount= ExcelUtility.getCellCount(xlPath, xlSheet, rowCount);
-//	
-//	String[][] data=new String[rowCount][cellCount];
-//	
-//	for (int i = 1; i <= rowCount; i++) {
-//		for (int j = 0; j < cellCount; j++) {
-//			data[i-1][j] = ExcelUtility.getcellData(xlPath, xlSheet, i, j);
-//
-//		}
-//	}
-//
-//	return data;
-//	
-//}
+@DataProvider(name="DataSource")
+public String[][] supplyData() throws IOException{
+	String xlPath="C:\\Users\\sanjana\\eclipse-workspace\\Sel_Testng\\Sanjana_01\\src\\test\\java\\com\\qa\\amazon\\TestData.xlsx";
+	String xlSheet = "Sheet1";
+	
+	int rowCount = ExcelUtility.getRowCount(xlPath, xlSheet);
+	
+	int cellCount= ExcelUtility.getCellCount(xlPath, xlSheet, rowCount);
+	
+	String[][] data=new String[rowCount][cellCount];
+	
+	for (int i = 1; i <= rowCount; i++) {
+		for (int j = 0; j < cellCount; j++) {
+			data[i-1][j] = ExcelUtility.getcellData(xlPath, xlSheet, i, j);
+
+		}
+	}
+
+	return data;
+	
+}
 }
